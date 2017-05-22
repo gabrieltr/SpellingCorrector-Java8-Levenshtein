@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Created by Gabriel Lucas de Toledo Ribeiro on 21/05/2017.
+ * Created by Gabriel Lucas de Toledo Ribeiro.
  */
 public class Corretor {
 
@@ -38,22 +38,23 @@ public class Corretor {
             //Stream.of(dict).map(a -> a).parallel().forEach((str) ->
             //        str
             synchronized (dict) {
-                min = dict.size();
                 //dict.keySet().parallelStream().forEach(s -> dict.compute(s, (s1, i) -> i = min));
-                dict.keySet().parallelStream().forEach(s ->
+                dict.keySet().forEach(s ->
                         dict.compute(s,
                                 (w, i) -> i = LevenshteinDistance.computeLevenshteinDistance(w, word)
                         )
                 );
-                //Math.min(dict.get(s), min)
-                min=dict.values().parallelStream().reduce(min, (a,c)->Math.min(a,c));
+                //min=dict.values().parallelStream().reduce(dict.size(), (a,c)->Math.min(a,c));
+                dict.values().forEach((c)->min=Math.min(min,c));
+                System.out.println("heuristica minima: "+min+"\t");
                 //dict.keySet().parallelStream().forEach(s -> min = Math.min(dict.get(s), min);
-                //System.out.println("heuristica minima: "+min);
-                dict.keySet().parallelStream().filter(a -> dict.get(a) <= min).map(x->x)
+                
+                dict.keySet().parallelStream().filter(a -> dict.get(a) <= min)
                         .forEach(k -> retorno.add(k));
+            
+                
             }
         }
         return retorno;
     }
-
 }
