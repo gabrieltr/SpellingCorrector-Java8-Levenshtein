@@ -40,7 +40,8 @@ public class Corretor {
                 dict.keySet().forEach(s ->
                         dict.compute(s,
                                 (w, i) -> {
-                                    i = LevenshteinDistance.computeLevenshteinDistance(w, word);
+                                    i = LevenshteinDistance.computeLevenshteinDistance(w, word)
+                                            + (w.contains(word)?0:1);
                                     min = Math.min(i, min);
                                     return i;
                                 }));

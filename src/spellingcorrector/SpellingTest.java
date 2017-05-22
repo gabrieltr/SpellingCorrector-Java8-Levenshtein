@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.time.DateTimeException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 /**
  * Created by peter on 4/3/16.
@@ -23,14 +24,19 @@ public class SpellingTest {
 
         spellfixer = new Spelling(path);;
 
-        System.out.println( spellfixer.correct("spelaing") );
+        args = new String[]{"ouvindo", "ovindo", "oto", "arm", "sorbet", "sebola", "aufasse", "aumoço"};
+        Stream.of(args).forEach((word) -> {
+                    long startword = System.currentTimeMillis();
+                    System.out.print("Corrigindo palavra '" + word + "': ");
+                    System.out.println(spellfixer.correct(word));
+                    System.out.println("\nDone in " + (System.currentTimeMillis() - startword) / 1000. + "s ");
+                });
+        //HashMap<String, String> tests1 = loadTest("tests1.json");
+        //HashMap<String, String> tests2 = loadTest("tests2.json");
 
-        HashMap<String, String> tests1 = loadTest("tests1.json");
-        HashMap<String, String> tests2 = loadTest("tests2.json");
-
-        test(tests1);
-        test(tests2);
-        System.out.println("Done in " + (System.currentTimeMillis() - start)/1000 + "s ");
+        //test(tests1);
+        //test(tests2);
+        System.out.println("Done in " + (System.currentTimeMillis() - start)/1000. + "s ");
     }
 
     private static void test(HashMap<String, String> tests) throws Exception {

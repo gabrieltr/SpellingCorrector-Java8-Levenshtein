@@ -13,7 +13,10 @@ public class Spelling {
     private Map<String,Integer> dict = new HashMap<>();
 
     public Spelling(Path dictionaryFile) throws Exception{
-        Stream.of(new String(Files.readAllBytes( dictionaryFile )).toLowerCase().replaceAll("[^a-z ]","").split(" ")).forEach( (word) ->{
+        Stream.of(new String(Files.readAllBytes( dictionaryFile )).toLowerCase()
+                //.replaceAll("[^a-z ]","").split(" "))
+                .split("[\\r?\\n]+"))
+        .forEach( (word) ->{
             dict.compute( word, (k,v) -> v == null ? 1 : v + 1  );
         });
     }
