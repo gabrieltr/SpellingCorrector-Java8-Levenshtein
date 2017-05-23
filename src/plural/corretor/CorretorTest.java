@@ -24,11 +24,11 @@ public class CorretorTest {
         
         start = System.currentTimeMillis();
         if (args.length == 0)
-            args = new String[]{"ouvindo", "ovindo", "oto", "arm", "sorbet", "sebola", "aufasse", "aufaçe", "aumoço"};
+            args = new String[]{"ouvindo", "ovindo", "oto", "arm", "sorbet", "sebola", "aufasse", "aufa?e", "aumo?o"};
         Stream.of(args).forEach((word) -> {
             long startword = System.currentTimeMillis();
             System.out.print("Corrigindo palavra '" + word + "': ");
-            corretor.Corrige(word).parallelStream().forEach((a) -> System.out.print(a + ", "));
+            corretor.Corrige(word).forEach((a) -> System.out.print(a + ", "));
             System.out.println("\nDone in " + (System.currentTimeMillis() - startword) / 1000. + "s ");
         });
         System.out.println("Done in " + (System.currentTimeMillis() - start) / 1000. + "s ");

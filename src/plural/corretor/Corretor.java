@@ -38,18 +38,16 @@ public class Corretor {
             //        str
             synchronized (dict) {
                 //dict.keySet().parallelStream().forEach(s -> dict.compute(s, (s1, i) -> i = min));
-                dict.keySet().forEach(s ->
+                dict.keySet().stream().forEach(s ->
                         dict.compute(s,
                                 (w, i) -> i = LevenshteinDistance.computeLevenshteinDistance(w, word)
                         )
                 );
-                //min=dict.values().parallelStream().reduce(dict.size(), (a,c)->Math.min(a,c));
-		min=99;
-                dict.values().forEach((c)->min=Math.min(min,c));
+
+                min=dict.values().stream().reduce(dict.size(), (a,c)->Math.min(a,c));
                 System.out.println("heuristica minima: "+min+"\t");
-                //dict.keySet().parallelStream().forEach(s -> min = Math.min(dict.get(s), min);
-                
-                dict.keySet().parallelStream().filter(a -> dict.get(a) <= min)
+
+                dict.keySet().stream().filter(a -> dict.get(a) <= min)
                         .forEach(k -> retorno.add(k));
             
                 
