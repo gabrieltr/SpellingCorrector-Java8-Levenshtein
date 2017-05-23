@@ -13,8 +13,7 @@ import java.util.stream.Stream;
  */
 public class Corretor {
 
-    int min = 999;
-    int limitrofe = 100;
+    int min = 99;
 
     private HashMap<String, Integer> dict = new HashMap<>();
 
@@ -45,6 +44,7 @@ public class Corretor {
                         )
                 );
                 //min=dict.values().parallelStream().reduce(dict.size(), (a,c)->Math.min(a,c));
+		min=99;
                 dict.values().forEach((c)->min=Math.min(min,c));
                 System.out.println("heuristica minima: "+min+"\t");
                 //dict.keySet().parallelStream().forEach(s -> min = Math.min(dict.get(s), min);
